@@ -1,42 +1,155 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>TPN Calculator</title>
-    <link rel="stylesheet" href="style.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TPN Worksheet</title>
+<link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div class="container">
-        <h1>TPN Calculator</h1>
-        <form id="tpnForm">
-            <label for="weight">Weight (kg):</label>
-            <input type="number" id="weight" required>
 
-            <label for="calories">Calories per kg:</label>
-            <input type="number" id="calories" value="25" required>
+<div class="container">
 
-            <label for="protein">Protein per kg (g):</label>
-            <input type="number" id="protein" value="1.5" required>
+    <!-- Header -->
+    <div class="worksheet-header">Total Parenteral Nutrition Worksheet</div>
 
-            <label for="carbs">Carbohydrates % of calories:</label>
-            <input type="number" id="carbs" value="50" required>
+    <!-- Patient Information Section -->
+    <div class="section-header">PATIENT INFORMATION</div>
+    <div class="patient-info-grid">
+        <input type="text" placeholder="Physician" class="input-cell">
+        <input type="text" placeholder="Patient Name" class="input-cell">
+        <input type="text" placeholder="MRN" class="input-cell">
+        <input type="text" placeholder="Room #" class="input-cell">
+        <input type="text" placeholder="Indication" class="input-cell">
+        <select class="input-cell">
+            <option>Central</option>
+            <option>Peripheral</option>
+        </select>
+        <label><input type="checkbox"> Fluid Restriction - No</label>
+        <label><input type="checkbox"> Fluid Restriction - Yes</label>
+    </div>
 
-            <label for="fat">Fat % of calories:</label>
-            <input type="number" id="fat" value="30" required>
+    <label>Allergies:</label>
+    <input type="text" placeholder="Allergies" class="input-cell">
 
-            <button type="button" onclick="calculateTPN()">Calculate TPN</button>
-        </form>
+    <label>Special Instructions:</label>
+    <div class="instructions-box">
+        <ul>
+            <li>Goal of Therapy: Maintenance / Repletion</li>
+            <li>Start by entering the patient data to update protein requirements and energy expenditure.</li>
+            <li>Select patient conditions to adjust nutritional recommendations.</li>
+            <li>Enter desired protein, calories, and goal TPN rate.</li>
+            <li>TPN formula chart calculates substrate amounts.</li>
+            <li>Colored boxes indicate values outside normal range; use clinical judgment.</li>
+        </ul>
+        <strong>Note: Only enter numbers into yellow boxes.</strong>
+    </div>
 
-        <div id="results" class="results">
-            <h2>Results:</h2>
-            <p id="totalCalories"></p>
-            <p id="totalProtein"></p>
-            <p id="totalCarbs"></p>
-            <p id="totalFat"></p>
+    <!-- Patient Data Section -->
+    <div class="section-header">PATIENT DATA</div>
+    <div class="patient-data-grid">
+
+        <!-- Left Column -->
+        <div>
+            <label>Age (yrs)</label>
+            <input type="number" value="45" class="input-cell">
+            <label>Height (in)</label>
+            <input type="number" value="67" class="input-cell">
+            <label>Weight (kg)</label>
+            <input type="number" value="70" class="input-cell">
+            <label>Gender</label>
+            <select class="input-cell">
+                <option>Male</option>
+                <option>Female</option>
+            </select>
+            <label><input type="checkbox"> Ventilator</label>
+            <label>Minute Ventilation (L/min)</label>
+            <input type="number" value="0" class="input-cell">
+            <label>T max (F°) last 24 hours</label>
+            <input type="number" value="98.6" class="input-cell">
+        </div>
+
+        <!-- Right Column -->
+        <div>
+            <div class="condition-category">
+                <h4>Critically Ill Conditions</h4>
+                <label><input type="checkbox"> Traumatic Brain Injury</label>
+                <label><input type="checkbox"> Burns</label>
+                <label><input type="checkbox"> Sepsis</label>
+                <label><input type="checkbox"> Open Abdomen</label>
+            </div>
+
+            <div class="condition-category">
+                <h4>Renal Conditions</h4>
+                <label><input type="checkbox"> Acute Kidney Injury</label>
+                <label><input type="checkbox"> AKI (No RRT)</label>
+                <label><input type="checkbox"> AKI (Intermittent RRT)</label>
+                <label><input type="checkbox"> AKI (CRRT)</label>
+                <label><input type="checkbox"> Chronic Kidney Failure</label>
+                <label><input type="checkbox"> CKD (Maintenance HD)</label>
+            </div>
+
+            <div class="condition-category">
+                <h4>Other Conditions</h4>
+                <label><input type="checkbox"> Obese</label>
+                <label><input type="checkbox"> Liver Failure</label>
+                <label><input type="checkbox"> Heart Failure</label>
+            </div>
         </div>
     </div>
 
-    <script src="script.js"></script>
+    <!-- Calculate Button -->
+    <button onclick="calculateTPN()" class="calculate-btn">Calculate TPN Formulation</button>
+
+    <!-- TPN Results -->
+    <div class="section-header">TPN FORMULATION RESULTS</div>
+    <table class="results-table">
+        <tr>
+            <th>Category</th>
+            <th>Nutrient</th>
+            <th>Day 1</th>
+            <th>Day 2</th>
+            <th>Day 3</th>
+            <th>Day 4</th>
+            <th>Day 5</th>
+            <th>Day 6</th>
+            <th>Day 7</th>
+        </tr>
+        <tr>
+            <td class="category-cell" rowspan="3">Macronutrients</td>
+            <td>Protein (g)</td>
+            <td>70</td><td>70</td><td>70</td><td>70</td><td>70</td><td>70</td><td>70</td>
+        </tr>
+        <tr>
+            <td>Dextrose (g)</td>
+            <td>150</td><td>200</td><td>250</td><td>250</td><td>250</td><td>250</td><td>250</td>
+        </tr>
+        <tr>
+            <td>Lipids (g)</td>
+            <td>25</td><td>40</td><td>50</td><td>50</td><td>50</td><td>50</td><td>50</td>
+        </tr>
+    </table>
+
+    <!-- Notes -->
+    <div class="note-box">
+        <strong>Clinical Notes:</strong><br>
+        - TPN formulation meets estimated energy requirements<br>
+        - Protein provision appropriate for patient's clinical status<br>
+        - Electrolytes within normal ranges<br>
+        - Monitor glucose during dextrose titration<br>
+        - Consider insulin if hyperglycemia develops
+    </div>
+
+    <!-- References -->
+    <div class="references-section">
+        <h3>References</h3>
+        <div class="reference-item">[1] ASPEN Guidelines 2016...</div>
+        <div class="reference-item">[2] JPEN 2016 McClave SA et al...</div>
+        <div class="reference-item">[3] ESPEN 2019 Clinical Nutrition...</div>
+    </div>
+
+</div>
+
+<script src="script.js"></script>
 </body>
 </html>
