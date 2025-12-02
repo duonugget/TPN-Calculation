@@ -1,12 +1,42 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>My Website</title>
-  <link rel="stylesheet" href="style.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TPN Calculator</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <h1>Hello, GitHub Pages!</h1>
+    <div class="container">
+        <h1>TPN Calculator</h1>
+        <form id="tpnForm">
+            <label for="weight">Weight (kg):</label>
+            <input type="number" id="weight" required>
+
+            <label for="calories">Calories per kg:</label>
+            <input type="number" id="calories" value="25" required>
+
+            <label for="protein">Protein per kg (g):</label>
+            <input type="number" id="protein" value="1.5" required>
+
+            <label for="carbs">Carbohydrates % of calories:</label>
+            <input type="number" id="carbs" value="50" required>
+
+            <label for="fat">Fat % of calories:</label>
+            <input type="number" id="fat" value="30" required>
+
+            <button type="button" onclick="calculateTPN()">Calculate TPN</button>
+        </form>
+
+        <div id="results" class="results">
+            <h2>Results:</h2>
+            <p id="totalCalories"></p>
+            <p id="totalProtein"></p>
+            <p id="totalCarbs"></p>
+            <p id="totalFat"></p>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
 </body>
 </html>
